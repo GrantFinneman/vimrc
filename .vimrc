@@ -15,6 +15,8 @@ set nowrap
 set colorcolumn=80
 set syntax+=.root
 
+let g:python3_host_prog='/home/gmf/.anaconda3/bin/python'
+
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 
 autocmd BufWritePre * %s/\s\+$//e
