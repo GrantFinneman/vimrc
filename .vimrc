@@ -13,20 +13,18 @@ set undofile
 set incsearch
 set nowrap
 set colorcolumn=80
-set syntax+=.root
-
-let g:python3_host_prog='/home/gmf/.anaconda3/bin/python'
 
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 
 autocmd BufWritePre * %s/\s\+$//e
 
+"let g:python3_host_prog = '/home/gmf/.anaconda3/envs/Grant/bin/python'
+
 call plug#begin()
 
+Plug 'jiangmiao/auto-pairs'
+Plug 'cjrh/vim-conda'
 Plug 'morhetz/gruvbox'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-Plug 'maskray/vscode-ccls'
 Plug 'jremmen/vim-ripgrep'
 Plug 'tpope/vim-fugitive'
 "Plug 'Valloric/YouCompleteMe'
@@ -37,7 +35,6 @@ Plug 'mbbill/undotree'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'parnmatt/vim-root'
 
 call plug#end()
 
@@ -50,7 +47,7 @@ endif
 
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
 let mapleader = " "
-let g:netrw_browse_split = 2
+let g:netrw_browse_split=2
 let g:netrw_banner = 0
 let g:netrw_sinsize = 25
 
@@ -66,33 +63,35 @@ nnoremap <leader>ps :Rg<SPACE>
 nnoremap <silent> <Leader>+ :vertical resize +5<CR>
 nnoremap <silent> <Leader>- :vertical resize -5<CR>
 
-"nnoremap <buffer> <silent> <Leader>gd :YcmCompleter GoTo<CR>
-"nnoremap <buffer> <silent> <Leader>gf :YcmCompleter FixIt<CR>
+nnoremap <silent> <Leader>gd :YcmCompleter GoTo<CR>
+nnoremap <silent> <Leader>gf :YcmCompleter FixIt<CR>
 
 nmap <leader>gj :diffget //3<CR>
 nmap <leader>gf :diffget //2<CR>
 nmap <leader>gs :G<CR>
 
 " Coc stuff
-nmap <leader>rw <Plug>(coc-rename)
+nmap <leader>rr <Plug>(coc-rename)
 nnoremap <leader>prw :CocSearch <C-R>=expand("<cword>")<CR><CR>
 xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
 
 " use <tab> for trigger completion and navigate to the next complete item
 function! s:check_back_space() abort
-	let col = col('.') - 1
-	return !col || getline('.')[col - 1]  =~ '\s'
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
 
 inoremap <silent><expr> <Tab>
-	\ pumvisible() ? "\<C-n>" :
-	\ <SID>check_back_space() ? "\<Tab>" :
-	\ coc#refresh()
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<Tab>" :
+      \ coc#refresh()
 
 augroup mygroup
-	autocmd!
-	" Setup formatexpr specified filetype(s).
-	autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-	" Update signature help on jump placeholder.
-	autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder.
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
+
