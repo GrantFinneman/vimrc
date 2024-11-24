@@ -19,6 +19,13 @@ set colorcolumn=80
 
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
+highlight ColorColumn ctermbg=0 guibg=lightgrey
 autocmd BufWritePre * %s/\s\+$//e
 
 "let g:python3_host_prog = '/home/gmfinneman/.conda/envs/python-for-neovim/bin/python3'
@@ -98,5 +105,3 @@ augroup mygroup
   " Update signature help on jump placeholder.
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
-
-
