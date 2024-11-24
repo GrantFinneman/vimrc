@@ -1,4 +1,7 @@
 inoremap ii <Esc>
+inoremap <C-f> <C-x><C-f>
+nnoremap vv <c-v> "fixes the block select in places where i need Ctrl-v
+
 set smartindent
 set tabstop=4 softtabstop=4
 set shiftwidth=4
@@ -18,12 +21,13 @@ highlight ColorColumn ctermbg=0 guibg=lightgrey
 
 autocmd BufWritePre * %s/\s\+$//e
 
-"let g:python3_host_prog = '/home/gmf/.anaconda3/envs/Grant/bin/python'
+"let g:python3_host_prog = '/home/gmfinneman/.conda/envs/python-for-neovim/bin/python3'
+let g:python_recommended_style=0
 
 call plug#begin()
 
 Plug 'jiangmiao/auto-pairs'
-Plug 'cjrh/vim-conda'
+"Plug 'cjrh/vim-conda'
 Plug 'morhetz/gruvbox'
 Plug 'jremmen/vim-ripgrep'
 Plug 'tpope/vim-fugitive'
@@ -34,7 +38,7 @@ Plug 'lyuts/vim-rtags'
 Plug 'mbbill/undotree'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'vim-airline/vim-airline'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 call plug#end()
 
@@ -82,10 +86,10 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
 
-inoremap <silent><expr> <Tab>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<Tab>" :
-      \ coc#refresh()
+" inoremap <silent><expr> <Tab>
+"       \ pumvisible() ? "\<C-n>" :
+"       \ <SID>check_back_space() ? "\<Tab>" :
+"       \ coc#refresh()
 
 augroup mygroup
   autocmd!
@@ -94,4 +98,5 @@ augroup mygroup
   " Update signature help on jump placeholder.
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
+
 
