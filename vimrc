@@ -4,6 +4,7 @@ nnoremap vv <c-v> "fixes the block select in places where i need Ctrl-v
 
 set smartindent
 set tabstop=4 softtabstop=4
+set expandtab
 set shiftwidth=4
 set relativenumber
 set number
